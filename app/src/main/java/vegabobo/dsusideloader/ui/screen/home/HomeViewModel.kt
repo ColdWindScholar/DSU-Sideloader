@@ -10,6 +10,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.viewModelScope
 import com.topjohnwu.superuser.Shell
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.Locale
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -60,7 +61,7 @@ class HomeViewModel @Inject constructor(
     var logger: LogcatDiagnostic? = null
 
     private val allocPercentage = DevicePropUtils.getGsidBinaryAllowedPerc()
-    val allocPercentageInt = String.format("%.0f", allocPercentage * 100).toInt()
+    val allocPercentageInt = String.format(Locale.US, "%.0f", allocPercentage * 100).toInt()
 
     private val storageStats = StorageUtils.getAllocInfo(allocPercentage)
     private val hasAvailableStorage = storageStats.first
