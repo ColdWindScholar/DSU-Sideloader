@@ -28,7 +28,7 @@ android {
         this.versionName = versionName
 
         minSdk = 29
-        targetSdk = 33
+        targetSdk = 36
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
@@ -83,14 +83,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_24
-        targetCompatibility = JavaVersion.VERSION_24
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
     kotlin {
-        jvmToolchain(11)
+        jvmToolchain(21)
     }
     buildFeatures {
         aidl = true
