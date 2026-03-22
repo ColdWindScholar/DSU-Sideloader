@@ -90,7 +90,7 @@ android {
         jvmTarget = "17"
     }
     kotlin {
-        jvmToolchain(24)
+        jvmToolchain(11)
     }
     buildFeatures {
         aidl = true
