@@ -10,29 +10,29 @@ object CmdRunner {
 
     var process: Process? = null
 
-    fun run(cmd: String): String {
+    fun run(cmd: List<String>): String {
         return if (Shell.getShell().isRoot) {
-            Shell.cmd(cmd).exec().out.toString()
+            Shell.cmd(cmd.joinToString(" ")).exec().out.toString()
         } else {
             runCommand(cmd)
         }
     }
 
-    fun runReadEachLine(cmd: String, onReceive: (String) -> Unit) {
+    fun runReadEachLine(cmd: List<String>, onReceive: (String) -> Unit) {
         if (Shell.getShell().isRoot) {
             val callbackList: CallbackList<String> = object : CallbackList<String>() {
                 override fun onAddElement(s: String) {
                     onReceive(s)
                 }
             }
-            Shell.cmd(cmd).to(callbackList).submit()
+            Shell.cmd(cmd.joinToString(" ")).to(callbackList).submit()
         } else {
             runCommand(cmd, onReceive)
         }
     }
 
-    private fun runCommand(cmd: String, onReceive: (String) -> Unit) {
-        process = ProcessBuilder("/bin/sh", "-c", cmd).start()
+    private fun runCommand(cmd: List<String>, onReceive: (String) -> Unit) {
+        process = ProcessBuilder(cmd).start()
         val bufferedReader = BufferedReader(InputStreamReader(process!!.inputStream))
         try {
             var line: String
@@ -43,7 +43,7 @@ object CmdRunner {
         }
     }
 
-    private fun runCommand(cmd: String): String {
+    private fun runCommand(cmd: List<String>): String {
         var output = ""
         runCommand(cmd) {
             output += "$it\n"

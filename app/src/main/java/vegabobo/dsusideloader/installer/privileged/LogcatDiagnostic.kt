@@ -25,12 +25,12 @@ class LogcatDiagnostic(
         logs = ""
         isLogging.set(true)
         Log.d(tag, "startLogging(), logEveryting: $shouldLogEverything, isLogging: ${isLogging.get()}")
-        CmdRunner.run("logcat -c")
+        CmdRunner.run(listOf("logcat", "-c"))
         val logCmd =
             if (shouldLogEverything) {
-                "logcat"
+                listOf("logcat")
             } else {
-                "logcat -v tag gsid:* *:S DynamicSystemService:* *:S DynamicSystemInstallationService:* *:S DynSystemInstallationService:* *:S"
+                listOf("logcat", "-v", "tag", "gsid:*", "*:S DynamicSystemService:*", "*:S DynamicSystemInstallationService:*", "*:S DynSystemInstallationService:*", "*:S")
             }
         CmdRunner.runReadEachLine(logCmd) {
             if (logs.isEmpty()) {
